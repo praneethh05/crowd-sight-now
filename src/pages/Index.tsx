@@ -12,8 +12,9 @@ import { Button } from '@/components/ui/button';
 const generateDetections = (frameNumber: number, intensity: number = 1) => {
   const count = Math.floor(Math.random() * 15 * intensity) + 5;
   return Array.from({ length: count }, () => ({
-    x: Math.random() * 0.8 + 0.1,
-    y: Math.random() * 0.8 + 0.1,
+    x: Math.random() * 0.85 + 0.05,
+    // People appear on the ground (bottom 60% of frame), not in the sky
+    y: Math.random() * 0.5 + 0.4, // 0.4 to 0.9 (40% to 90% from top)
     width: 0.05 + Math.random() * 0.05,
     height: 0.08 + Math.random() * 0.08,
   }));

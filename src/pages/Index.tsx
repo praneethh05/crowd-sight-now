@@ -5,7 +5,8 @@ import { HeatmapCanvas } from '@/components/HeatmapCanvas';
 import { AnalyticsPanel } from '@/components/AnalyticsPanel';
 import { ControlPanel } from '@/components/ControlPanel';
 import { toast } from 'sonner';
-import { Eye } from 'lucide-react';
+import { Eye, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 // Simulated detection data generator
 const generateDetections = (frameNumber: number, intensity: number = 1) => {
@@ -63,6 +64,18 @@ const Index = () => {
   const handleDownload = useCallback(() => {
     toast.success('Processed video ready for download!');
     // In real implementation, this would trigger video download
+  }, []);
+
+  const handleReset = useCallback(() => {
+    setIsAnalyzing(false);
+    setVideoFile(null);
+    setVideoUrl('');
+    setCurrentFrame(0);
+    setDetections([]);
+    setDetectionHistory([]);
+    setCurrentCount(0);
+    setPeakCount(0);
+    toast.info('Ready for new video upload');
   }, []);
 
   // Simulate real-time analysis
@@ -136,6 +149,19 @@ const Index = () => {
         {/* Analysis Dashboard */}
         {videoFile && (
           <div className="space-y-6">
+            {/* Back Button */}
+            <div className="flex justify-start">
+              <Button
+                onClick={handleReset}
+                variant="outline"
+                size="lg"
+                className="gap-2"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                Upload New Video
+              </Button>
+            </div>
+
             {/* Controls */}
             <div className="flex justify-center">
               <ControlPanel

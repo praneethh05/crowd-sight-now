@@ -50,7 +50,14 @@ export const HeatmapCanvas = ({ detectionHistory, width, height }: HeatmapCanvas
     });
 
     // Find max value for normalization
-    const maxHeat = Math.max(...heatmapData.flat());
+    let maxHeat = 0;
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (heatmapData[y][x] > maxHeat) {
+          maxHeat = heatmapData[y][x];
+        }
+      }
+    }
 
     // Draw heatmap
     if (maxHeat > 0) {
